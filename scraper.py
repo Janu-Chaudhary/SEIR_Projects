@@ -1,6 +1,9 @@
 import sys 
-import requests
-from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 
 class Crawler:
 
@@ -16,29 +19,35 @@ class Crawler:
 
     def crawl(self,url):
 
-        headers ={'User-Agent':'Mozilla/5.0 (Windows NT 6.3; Win 64 ; x64) Apple WeKit /537.36(KHTML , like Gecko) Chrome/80.0.3987.162 Safari/537.36'} 
-        try:
-            webpage = requests.get(url,headers=headers)
-            webpage.raise_for_status()
+        options = Options()
+        options.add_argument("--headless") 
 
-        except requests.exceptions.RequestException:
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options = options)
+
+        try:
+            driver.get(url)
+
+        except Exception:
             print("Error: Unable to fetch the webpage")
             sys.exit(1)
             
-        soup = BeautifulSoup(webpage.text,features="html.parser")
         
-        if soup.title:
-            self._title = soup.title.text
         
-        if soup.body:
-            self._body = soup.body.get_text(separator=" ",strip = True)
+        self._title = driver.title
+        
+        try:
+            body = driver.find_element(By.TAG_NAME, "body")
+            self._body = body.text
+        except:
+            self._body = ""
 
-        links = soup.find_all('a')
+        links = driver.find_elements(By.TAG_NAME, "a")
         for l in links:
-            link = l.get('href')
+            link = l.get_attribute('href')
             if link:
                 self._links.append(link)
 
+        driver.quit()
 
     def getTitle(self):
         return self._title.strip()
