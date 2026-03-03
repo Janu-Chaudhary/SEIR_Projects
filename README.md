@@ -28,12 +28,12 @@ A simple web crawler that fetches a webpage and extracts:
 
 **Usage:**
 ```bash
-python Crawler.py <url>
+python scraper.py <url>
 ```
 
 **Example:**
 ```bash
-python Crawler.py https://example.com
+python scraper.py https://example.com
 ```
 
 ---
@@ -63,7 +63,7 @@ beautifulsoup4
 ## 🛠️ Tech Stack
 
 - **Language:** Python 3
-- **Libraries:** `requests`, `BeautifulSoup4`, `re`, `sys`
+- **Libraries:** `requests`, `BeautifulSoup4`, `sys`
 
 ---
 
