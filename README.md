@@ -54,8 +54,8 @@ pip install -r requirements.txt
 
 **`requirements.txt`**
 ```
-requests
-beautifulsoup4
+selenium
+webdriver-manager
 ```
 
 ---
@@ -63,7 +63,7 @@ beautifulsoup4
 ## 🛠️ Tech Stack
 
 - **Language:** Python 3
-- **Libraries:** `requests`, `BeautifulSoup4`, `sys`
+- **Libraries:** `selenium`, `webdriver-manager`
 
 ---
 
